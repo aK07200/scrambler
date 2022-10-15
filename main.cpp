@@ -15,7 +15,11 @@ std::string encode(std::string letter) {
     bool *arr = new bool[sizeof(letter)], *ans = new bool[sizeof(letter)];
     for (int i = 0; i < letter.size(); i++) {
         if (letter[i] == '1') arr[i] = true;
-        else arr[i] = false;
+        else if (letter[i] == '0') arr[i] = false;
+        else {
+            std::cout << "Fatal err: non-binary code.";
+            exit(-1);
+        }
     }
     for (int i = 0; i < letter.size(); i++) {
         ans[i] = step_encode(i, arr, ans);
@@ -43,7 +47,11 @@ std::string decode(std::string letter) {
     bool* arr = new bool[sizeof(letter)], * ans = new bool[sizeof(letter)];
     for (int i = 0; i < letter.size(); i++) {
         if (letter[i] == '1') arr[i] = true;
-        else arr[i] = false;
+        else if (letter[i] == '0') arr[i] = false;
+        else {
+            std::cout << "Fatal err: non-binary code.";
+            exit(-1);
+        }
     }
     for (int i = 0; i < letter.size(); i++) {
         ans[i] = step_decode(i, arr);
@@ -56,26 +64,12 @@ std::string decode(std::string letter) {
   return to_return;
 }
 
-std::string extra_input (std::string inp) {
-    bool ckeck = false;
-    while (check != true) {
-        std::cin >> inp;
-        check != true;
-        for (int i = 0; i < inp.size(); i++) {
-	if ((inp[i] != "0") || (inp[i] != "1") check = false;
-        }
-        if (check == true) return inp;
-        else std::cout << "Это не двоичный сигнал.\n"
-    }
-}
-
 int main() {
     std::cout << "\nВведите исходное сообщение: ";
-    std::string input; extra_input(input);
+    std::string input; std::cin >> (input);
     std::cout << "\nСкремблер: " << encode(input);
     std::cout << "\nДескремблер: " << decode(input);
     if (encode(decode(input)) == input) std::cout << "\nФункции работают стабильно.\n\n";
     else std::cout << "\nФункции несиправны.\n\n";
     return 0;
 }
-

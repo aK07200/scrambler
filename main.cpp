@@ -56,9 +56,22 @@ std::string decode(std::string letter) {
   return to_return;
 }
 
+std::string extra_input (std::string inp) {
+    bool ckeck = false;
+    while (check != true) {
+        std::cin >> inp;
+        check != true;
+        for (int i = 0; i < inp.size(); i++) {
+	if ((inp[i] != 0) || (inp[i] != 1) check = false;
+        }
+        if (check == true) return inp;
+        else std::cout << "Это не двоичный сигнал.\n"
+    }
+}
+
 int main() {
     std::cout << "\nВведите исходное сообщение: ";
-    std::string input; std::cin >> input;
+    std::string input; extra_input(input);
     std::cout << "\nСкремблер: " << encode(input);
     std::cout << "\nДескремблер: " << decode(input);
     if (encode(decode(input)) == input) std::cout << "\nФункции работают стабильно.\n\n";
